@@ -52,6 +52,27 @@ class AirplaneController {
       return res.status(error.statusCode).json(ErrorResponse);
     }
   }
+
+  /**
+   * Handles the request to get an airplane with a specific ID.
+   * Fetches the airplane from airplane service.
+   * If successful, return a successful response with the airplane object.
+   * If there's an error, return an error response with error details.
+   *
+   * @param {Object} req - The request object.
+   * @param {Object} res - Thr response object.
+   * @returns {Promise<Object>} - The response object.
+   */
+  async getAirplane(req, res) {
+    try {
+      const airplane = await this.airplaneService.getAirplane(req.params.id);
+      SuccessResponse.data = airplane;
+      return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+      ErrorResponse.error = error;
+      return res.status(error.statusCode).json(ErrorResponse);
+    }
+  }
 }
 
 module.exports = AirplaneController;

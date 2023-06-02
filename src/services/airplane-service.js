@@ -55,6 +55,35 @@ class AirplaneService {
       );
     }
   }
+
+  /**
+   * Fetches an airplane with provided ID from the repository.
+   * If successful, returns the airplane object.
+   * If the airplane with given ID is not found, throws AppError with a specific message and status code.
+   * If there's another error, throws AppError with generic error message.
+   *
+   * @param {string|number} id - The ID of the airplane to fetch
+   * @returns {Promise<Object>} The airplane object
+   * @throws {AppError} If the airplane is not found, or if there's another error in fetching the airplane
+   */
+  async getAirplane(id) {
+    try {
+      const airplane = await this.airplaneRepository.get(id);
+      return airplane;
+    } catch (error) {
+      if (error.statusCode == StatusCodes.NOT_FOUND) {
+        throw new AppError(
+          ['The airplane you requested is not found'],
+          error.statusCode
+        );
+      }
+
+      throw new AppError(
+        ['Cannot fetch data for the airplane'],
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = AirplaneService;
