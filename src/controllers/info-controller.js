@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const { SuccessResponse } = require('../utils/common');
+const { SuccessResponse } = require('../utils');
 
 const info = (req, res) => {
   SuccessResponse.message = 'API is live';
