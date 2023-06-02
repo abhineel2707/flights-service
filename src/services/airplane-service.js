@@ -35,6 +35,26 @@ class AirplaneService {
       );
     }
   }
+
+  /**
+   * Fetches all the airplanes from the repository.
+   * If successful, returns an array of airplane objects.
+   * If there's an error, throws an AppError with a generic error message.
+   *
+   * @returns {Promise<Array<Object>>} - An array of airplane objects.
+   * @throws {AppError} - If there is an error fetching the airplanes.
+   */
+  async getAirplanes() {
+    try {
+      const airplanes = await this.airplaneRepository.getAll();
+      return airplanes;
+    } catch (error) {
+      throw new AppError(
+        ['Cannot fetch data of all the airplanes'],
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = AirplaneService;

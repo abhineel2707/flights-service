@@ -13,4 +13,6 @@ router.post(
   airplaneController.createAirplane.bind(airplaneController)
 );
 
+router.get('/', airplaneController.getAirplanes.bind(airplaneController));
+
 module.exports = router;
