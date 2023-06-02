@@ -1,0 +1,7 @@
+.vscode
+node_modules
+.env
+combined.log
+errors.log
+uncaughtExceptions.log
+src/config/config.json
