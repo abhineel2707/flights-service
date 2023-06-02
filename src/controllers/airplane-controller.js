@@ -101,6 +101,26 @@ class AirplaneController {
       return res.status(error.statusCode).json(ErrorResponse);
     }
   }
+
+  /**
+   * Handles the request to delete airplane with a specific ID.
+   * Deletes the airplane using airplane service.
+   * If successful, return a response with status code 204 (No Content).
+   * If there's an error, returns an error response with error details.
+   *
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Promise<Object>} - The response object.
+   */
+  async destroyAirplane(req, res) {
+    try {
+      await this.airplaneService.destroyAirplane(req.params.id);
+      return res.status(StatusCodes.NO_CONTENT).send();
+    } catch (error) {
+      ErrorResponse.error = error;
+      return res.status(error.statusCode).json(ErrorResponse);
+    }
+  }
 }
 
 module.exports = AirplaneController;

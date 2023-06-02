@@ -113,6 +113,34 @@ class AirplaneService {
       );
     }
   }
+
+  /**
+   * Deletes an airplane with the provided ID.
+   * If successful, returns the response from the repository's destroy method.
+   * If the airplane with the given ID is not found, throws an AppError with a specific message and status code.
+   * If there's another error, throws an AppError with a generic error message.
+   *
+   * @param {string|number} id - The ID of the airplane to delete
+   * @returns {Promise<Object>} The response from the repository's destroy method
+   * @throws {AppError} If the airplane is not found, or if there's another error deleting the airplane
+   */
+  async destroyAirplane(id) {
+    try {
+      const response = await this.airplaneRepository.destroy(id);
+      return response;
+    } catch (error) {
+      if (error.statusCode == StatusCodes.NOT_FOUND) {
+        throw new AppError(
+          ['The airplane you requested to delete is not found'],
+          error.statusCode
+        );
+      }
+      throw new AppError(
+        ['Cannot delete the airplane'],
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = AirplaneService;

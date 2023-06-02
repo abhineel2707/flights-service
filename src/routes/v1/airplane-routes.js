@@ -22,4 +22,9 @@ router.patch(
   airplaneController.updateAirplane.bind(airplaneController)
 );
 
+router.delete(
+  '/:id',
+  airplaneController.destroyAirplane.bind(airplaneController)
+);
+
 module.exports = router;
