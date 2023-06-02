@@ -52,11 +52,14 @@ class CrudRepository {
       }
     });
 
+    // If the response's first element (the count of affected rows) is not truthy (e.g., if it's 0), throw an error
     if (!response.at(0)) {
       throw new AppError(['Cannot find resource'], StatusCodes.NOT_FOUND);
     }
 
-    return response;
+    // fetch the updated record
+    const updatedRecord = await this.model.findOne({ where: { id: id } });
+    return updatedRecord;
   }
 }
 

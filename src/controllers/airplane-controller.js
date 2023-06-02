@@ -73,6 +73,34 @@ class AirplaneController {
       return res.status(error.statusCode).json(ErrorResponse);
     }
   }
+
+  /**
+   * Handles the request to update an airplane with a specific ID.
+   * Updates the airplane using the airplane service.
+   * If successful, returns a successful response with the updated airplane object.
+   * If there's an error, returns an error response with the error details.
+   *
+   * @param {Object} req - The request object
+   * @param {Object} res - The response object
+   * @returns {Promise<Object>} The response object
+   */
+  async updateAirplane(req, res) {
+    try {
+      const { modelNumber, capacity } = req.body;
+      const updatedAirplane = await this.airplaneService.updateAirplane(
+        {
+          modelNumber,
+          capacity
+        },
+        req.params.id
+      );
+      SuccessResponse.data = updatedAirplane;
+      return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+      ErrorResponse.error = error;
+      return res.status(error.statusCode).json(ErrorResponse);
+    }
+  }
 }
 
 module.exports = AirplaneController;

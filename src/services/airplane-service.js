@@ -84,6 +84,35 @@ class AirplaneService {
       );
     }
   }
+
+  /**
+   * Updates an airplane with the provided ID using the provided data.
+   * If successful, returns the updated airplane object.
+   * If the airplane with the given ID is not found, throws an AppError with a specific message and status code.
+   * If there's another error, throws an AppError with a generic error message.
+   *
+   * @param {Object} data - The data to update the airplane with
+   * @param {string|number} id - The ID of the airplane to update
+   * @returns {Promise<Object>} The updated airplane object
+   * @throws {AppError} If the airplane is not found, or if there's another error updating the airplane
+   */
+  async updateAirplane(data, id) {
+    try {
+      const updatedAirplane = await this.airplaneRepository.update(data, id);
+      return updatedAirplane;
+    } catch (error) {
+      if (error.statusCode == StatusCodes.NOT_FOUND) {
+        throw new AppError(
+          ['The airplane you requested to update is not found'],
+          error.statusCode
+        );
+      }
+      throw new AppError(
+        ['Cannot update the airplane'],
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = AirplaneService;

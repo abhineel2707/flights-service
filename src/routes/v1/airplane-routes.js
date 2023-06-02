@@ -17,4 +17,9 @@ router.get('/', airplaneController.getAirplanes.bind(airplaneController));
 
 router.get('/:id', airplaneController.getAirplane.bind(airplaneController));
 
+router.patch(
+  '/:id',
+  airplaneController.updateAirplane.bind(airplaneController)
+);
+
 module.exports = router;
